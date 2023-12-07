@@ -27,9 +27,9 @@ export default {
         return new Response(err.stack, { status: 500 })
       }
     },
-  
+
     async sendWelcomeEmail(token, email, username) {
-      await fetch('https://api.postmarkapp.com/email', {
+      await fetch('https://api.postmarkapp.com/email/withTemplate', {
         method: 'POST',
         headers: {
           'accept': 'application/json',
@@ -37,17 +37,19 @@ export default {
           'x-postmark-server-token': token,
         },
         body: JSON.stringify({
+          'TemplateAlias': 'welcome',
+          'TemplateModel': {
+            'email': email,
+            'username': username,
+          },
           'From': 'admin@nelson.social',
-          'To': 'till@nelson.social', // TODO: use email
-          'Subject': 'New account',
-          'TextBody': `${username} (${email}) just signed up.`, // TODO: use template
-          'MessageStream': 'outbound'
+          'To': email,
         }),
       });
     },
     
     async welcomeToot(token, username) {
-      const statusResponse = await fetch('https://nelson.social/api/v1/statuses', {
+      await fetch('https://nelson.social/api/v1/statuses', {
         method: 'POST',
         headers: {
           'authorization': `Bearer ${token}`,
@@ -56,7 +58,7 @@ export default {
         },
         body: JSON.stringify({
           'visibility': 'public',
-          'status': `Everyone, meet ${username}! #introduction\n\n What brought you here and what should people know about you?`,
+          'status': `Everyone, meet ${username}! #introduction\n\nWhat brought you here and what should people know about you?`,
         }),
       });
     },
