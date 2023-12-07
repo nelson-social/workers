@@ -12,9 +12,7 @@ async function handleRequest(request) {
         return response;
       }
     }
-
-    return new Response('fooabr')
-  } catch(e) {
+  } catch(err) {
     return new Response(err.stack, { status: 500 })
   }
 }
