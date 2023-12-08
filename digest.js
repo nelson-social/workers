@@ -32,9 +32,9 @@ export default {
       return new Response(err.stack, { status: 500 })
     }
 
-    const scoredTimeline = this.scoreTimeline(timeline);
-
-    console.log(scoredTimeline);
+    const scoredTimeline = this.scoreTimeline(timeline)
+      .filter(status => status._score > 2) // remove junk
+      .slice(0, 5); // limit to 5 posts
 
     const { pathname } = new URL(request.url);
 
