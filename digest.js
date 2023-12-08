@@ -45,11 +45,11 @@ export default {
     }
 
     const iframes = scoredTimeline.map(status => {
-      return `<iframe src="${status.url}/embed" class="mastodon-embed" width="400" style="border: 0; max-width: 100%;"></iframe>`
+      return `<iframe src="${status.url}/embed" class="mastodon-embed" width="400" style="border: 0; max-width: 100%; margin-bottom: 2rem;"></iframe>`
     });
 
     const html = `<!DOCTYPE html>
-      <body>
+      <body style="text-align: center;">
         <h1>Daily Digest</h1>
         <h3>${startOfDay.toLocaleString('en-GB', {timeZone: 'America/Vancouver'})} — ${endOfDay.toLocaleString('en-GB', {timeZone: 'America/Vancouver'})}</h3>
         ${iframes.join('<br>')}
