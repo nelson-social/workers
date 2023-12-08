@@ -58,7 +58,7 @@ export default {
         },
         body: JSON.stringify({
           'visibility': 'public',
-          'status': `Everyone, meet ${username}! #introduction\n\nWhat brought you here and what should people know about you?`,
+          'status': `Everyone, meet @${username}! #introduction\n\nWhat brought you here and what should people know about you?`,
         }),
       });
     },
